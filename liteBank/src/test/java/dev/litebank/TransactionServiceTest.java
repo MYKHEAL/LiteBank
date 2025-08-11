@@ -19,11 +19,12 @@ public class TransactionServiceTest {
     @Autowired
 private TransactionService transactionService;
     @Test
+
     void testCanCreateTransaction() {
         CreateTransactionRequest transactionRequest = new CreateTransactionRequest();
         transactionRequest.setTransactionType(TransactionType.CREDIT);
         transactionRequest.setAccountNumber("098766543");
-        transactionRequest.setAmount(new BigDecimal(20_000));
+        transactionRequest.setAmount(new BigDecimal("20000.00"));
 
         CreateTransactionResponse transactionResponse = transactionService.create(transactionRequest);
         assertNotNull(transactionResponse);
