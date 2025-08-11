@@ -1,15 +1,12 @@
 package dev.litebank.service;
 
-import dev.litebank.dto.DepositRequest;
-import dev.litebank.dto.DepositResponse;
+import dev.litebank.dto.request.DepositRequest;
+import dev.litebank.dto.response.DepositResponse;
+import dev.litebank.exceptions.AccountNotFoundException;
 import dev.litebank.model.Account;
 import dev.litebank.repository.AccountRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +18,8 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public DepositResponse deposit(DepositRequest depositRequest) {
-        Optional<Account> foundAccount = accountRepository.findByAccountNumber(depositRequest.getAccountNumber());
+        Account foundAccount = accountRepository.findByAccountNumber(depositRequest.getAccountNumber())
+                .orElseThrow(()-> new AccountNotFoundException("account not found"));
         return null;
 
     }
